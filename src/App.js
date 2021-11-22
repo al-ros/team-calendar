@@ -1,23 +1,20 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import Dropdown from './components/Dropdown';
 import './App.css';
 
+const DROPDOWN_DUMMY_OPTIONS = [
+  { label: 'Item 1', value: 1 },
+  { label: 'Item 2', value: 2 },
+  { label: 'Item 3', value: 3 }
+]
+
 function App() {
+  const [ dropdownValue, setDropdownValue ] = useState(DROPDOWN_DUMMY_OPTIONS[0].value)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Dropdown options={DROPDOWN_DUMMY_OPTIONS} 
+        value={dropdownValue}
+        onChange={(e) => setDropdownValue(e.target.value)} />
     </div>
   );
 }
