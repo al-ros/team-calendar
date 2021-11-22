@@ -1,0 +1,14 @@
+.dropdown {
+  display: inline-block;
+  height: 30px;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  min-width: 10rem;
+  height: 2rem;
+  border: 2px solid rgb(77, 77, 77);
+  white-space: nowrap;
+  text-align: center;
+  outline: none;
+  background-color: #eee;
+  cursor: pointer;
+}
