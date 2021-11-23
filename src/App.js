@@ -14,7 +14,7 @@ function App() {
   const [ dropdownValue, setDropdownValue ] = useState(DROPDOWN_DUMMY_OPTIONS[0].value)
   return (
     <div className="App">
-      <Header/>
+      <Header onClickNewEvent={() => null} onFilterChange={() => null}/>
       <Button onClick={() => console.log('click')} label="ImButton"/>
       <Dropdown options={DROPDOWN_DUMMY_OPTIONS} 
         value={dropdownValue}
