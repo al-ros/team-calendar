@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Header from './components/Header';
 import Dropdown from './components/Dropdown';
 import './App.css';
 import Button from './components/Button';
@@ -13,6 +14,7 @@ function App() {
   const [ dropdownValue, setDropdownValue ] = useState(DROPDOWN_DUMMY_OPTIONS[0].value)
   return (
     <div className="App">
+      <Header/>
       <Button onClick={() => console.log('click')} label="ImButton"/>
       <Dropdown options={DROPDOWN_DUMMY_OPTIONS} 
         value={dropdownValue}
