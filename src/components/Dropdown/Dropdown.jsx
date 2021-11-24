@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-import './Dropdown.css';
+import cn from 'classnames'
+import './Dropdown.scss';
 
 const Dropdown = ({ options = [], value, onChange, className }) => {
   return !!options.length && (
-    <select value={ value } onChange={ onChange } className={`dropdown ${className}`}>
+    <select value={ value } onChange={ onChange } className={cn('dropdown', className)}>
       { 
         options.map(({ label, value: itemValue }) => 
           <option key={ itemValue } value={ itemValue }>{ label}</option>
