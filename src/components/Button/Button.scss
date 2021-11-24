@@ -12,8 +12,13 @@
     height: 2rem;
     background-color:#eee;
     cursor: pointer;
-}
+    
+    &:active {
+        background-color: #ddd;
+    }
 
-.button:active {
-    background-color: #ddd;
+    &--disabled {
+        pointer-events: none;
+        opacity: .5;
+    }
 }

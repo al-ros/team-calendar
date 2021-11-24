@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Header from './components/Header';
 import Dropdown from './components/Dropdown';
 import Button from './components/Button';
 import ModalAuth from './components/ModalAuth';
@@ -22,6 +23,7 @@ function App() {
   
   return (
     <div className="App">
+      <Header onClickNewEvent={() => null} onFilterChange={() => null}/>
       <Button onClick={() => console.log('click')} label="ImButton"/>
       <Dropdown options={DROPDOWN_DUMMY_OPTIONS} 
         value={dropdownValue}
