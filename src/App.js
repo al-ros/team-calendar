@@ -1,35 +1,36 @@
 import { useState } from 'react';
 import Header from './components/Header';
-import Dropdown from './components/Dropdown';
-import Button from './components/Button';
 import ModalAuth from './components/ModalAuth';
+import UsersContext from './contexts/UsersContext';
 import './App.css';
 
-const DROPDOWN_DUMMY_OPTIONS = [
-  { label: 'Item 1', value: 1 },
-  { label: 'Item 2', value: 2 },
-  { label: 'Item 3', value: 3 }
+const USERS = [
+  { label: 'Admin', value: 'admin', role: 'admin' },
+  { label: 'Sasha', value: 'sasha', role: 'user' },
+  { label: 'Roma', value: 'roma', role: 'user' }
 ]
 
 function App() {
-  const [ dropdownValue, setDropdownValue ] = useState(DROPDOWN_DUMMY_OPTIONS[0].value)
+  const [ user, setUser ] = useState()
   const [ isOpenAuth, setIsOpenAuth ] = useState(true);
-  const [ currentUser, setCurrentUser ] = useState();
 
-  const handleAuthSubmit = (user) => {
+  const handleAuthSubmit = (currUser) => {
+    const currentUserInfo = USERS.find(({value}) => currUser === value );
+    setUser(currentUserInfo);
     setIsOpenAuth(false);
-    setCurrentUser(user)
   }
   
   return (
     <div className="App">
-      <Header onClickNewEvent={() => null} onFilterChange={() => null}/>
-      <Button onClick={() => console.log('click')} label="ImButton"/>
-      <Dropdown options={DROPDOWN_DUMMY_OPTIONS} 
-        value={dropdownValue}
-        onChange={(e) => setDropdownValue(e.target.value)} />
-      Current user: {currentUser}
-      <ModalAuth open={ isOpenAuth } onSubmit={ handleAuthSubmit } />
+      <UsersContext.Provider
+        value={{
+          USERS,
+          user
+        }}
+      >
+        <Header onClickNewEvent={() => null} onFilterChange={() => null}/>
+        <ModalAuth open={ isOpenAuth } onSubmit={ handleAuthSubmit } />
+      </UsersContext.Provider>    
     </div>
   );
 }

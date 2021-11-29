@@ -1,26 +1,23 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Modal from '../Modal'
 import Dropdown from '../Dropdown';
 import Button from '../Button';
-
-const DROPDOWN_DUMMY_OPTIONS = [
-  { label: 'Admin', value: 'admin' },
-  { label: 'User 1', value: 'user-1' },
-  { label: 'User 2', value: 'user-2' }
-]
+import UsersContext from '../../contexts/UsersContext';
 
 const ModalAuth = ({ open, onSubmit }) => {
-  const [ userValue, setUserValue ] = useState(DROPDOWN_DUMMY_OPTIONS[0].value);
+  const { USERS } = useContext(UsersContext)
+  const [ user, setUser ] = useState(USERS[0].value)
+
 
   return (
     <Modal open={ open }
       closable={ false } 
-      footer={ <Button label="Confirm" onClick={ () => onSubmit(userValue) }/> }
+      footer={ <Button label="Confirm" onClick={ () => onSubmit(user) }/> }
     >
       <h2>Please authorize</h2>
-      <Dropdown options={ DROPDOWN_DUMMY_OPTIONS } 
-        value={ userValue }
-        onChange={ ({target: { value}}) => setUserValue(value) } />
+      <Dropdown options={ USERS } 
+        value={ user }
+        onChange={ ({target: { value}}) => setUser(value) } />
     </Modal>
   )
 }
