@@ -21,15 +21,20 @@ function App() {
     setUser(currentUserInfo);
     setIsOpenAuth(false);
   }
+
+  const handleEventSubmit = (event) => {
+    console.log('event', event)
+  }
   
   return (
     <div className="App">
       <UsersContext.Provider value={{ USERS, user }} >
         <Header onClickNewEvent={() => setIsOpenModalEvent(true)} onFilterChange={() => null} />
         <ModalAuth open={ isOpenAuth } onSubmit={ handleAuthSubmit } />
-        <ModalEvent open={ isOpenModalEvent } 
-          onSubmit={ () => null } 
-          onCancel={ () => setIsOpenModalEvent(false) } />
+        { isOpenModalEvent && <ModalEvent 
+            onSubmit={ handleEventSubmit } 
+            onCancel={ () => setIsOpenModalEvent(false) } />
+        }
       </UsersContext.Provider>    
     </div>
   );
