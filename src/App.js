@@ -4,6 +4,7 @@ import ModalAuth from './components/ModalAuth';
 import ModalEvent from './components/ModalEvent';
 import UsersContext from './contexts/UsersContext';
 import './App.css';
+import Calendar from './components/Calendar';
 
 const USERS = [
   { label: 'Admin', value: 'admin', role: 'admin' },
@@ -30,11 +31,12 @@ function App() {
     <div className="App">
       <UsersContext.Provider value={{ USERS, user }} >
         <Header onClickNewEvent={() => setIsOpenModalEvent(true)} onFilterChange={() => null} />
-        <ModalAuth open={ isOpenAuth } onSubmit={ handleAuthSubmit } />
+        <Calendar />
         { isOpenModalEvent && <ModalEvent 
             onSubmit={ handleEventSubmit } 
             onCancel={ () => setIsOpenModalEvent(false) } />
         }
+        <ModalAuth open={ isOpenAuth } onSubmit={ handleAuthSubmit } />
       </UsersContext.Provider>    
     </div>
   );

@@ -3,7 +3,7 @@ import Button from '../Button/Button'
 import Dropdown from '../Dropdown/Dropdown'
 import PropTypes from 'prop-types'
 import UsersContext from '../../contexts/UsersContext'
-import './Header.scss'
+ import './Header.scss'
 
 const Header = ({onClickNewEvent, filterValue, onFilterChange}) => {
     const { USERS } = useContext(UsersContext)    

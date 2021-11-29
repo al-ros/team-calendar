@@ -5,7 +5,7 @@ import Dropdown from '../Dropdown';
 import Button from '../Button';
 import TextField from '../TextField';
 import UsersContext from '../../contexts/UsersContext';
-import { DAYS, WORKING_HOURS } from '../../constants';
+import { DAYS, HOURS } from '../../constants';
 import './ModalEvent.scss';
 
 const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
@@ -27,7 +27,7 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
   const timesOptions = useMemo(() => 
   [
     { label: 'Select Time', value: '' }, 
-    ...WORKING_HOURS.map((time) => ({label: time, value: time}))
+    ...HOURS.map((time) => ({label: time, value: time}))
   ]
 , []);
 
