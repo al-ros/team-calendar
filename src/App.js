@@ -3,7 +3,7 @@ import Header from './components/Header';
 import ModalAuth from './components/ModalAuth';
 import UsersContext from './contexts/UsersContext';
 import './App.css';
-import CalendarMarkup from './components/CalendarMarkup';
+import Calendar from './components/Calendar';
 
 const USERS = [
   { label: 'Admin', value: 'admin', role: 'admin' },
@@ -31,7 +31,7 @@ function App() {
       >
         <Header onClickNewEvent={() => null} onFilterChange={() => null}/>
         <ModalAuth open={ isOpenAuth } onSubmit={ handleAuthSubmit } />
-        <CalendarMarkup />
+        <Calendar />
       </UsersContext.Provider>    
     </div>
   );
