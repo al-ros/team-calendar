@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import PropTypes from 'prop-types'
 import Modal from '../Modal'
 import Dropdown from '../Dropdown';
 import Button from '../Button';
@@ -7,7 +8,6 @@ import UsersContext from '../../contexts/UsersContext';
 const ModalAuth = ({ open, onSubmit }) => {
   const { USERS } = useContext(UsersContext)
   const [ user, setUser ] = useState(USERS[0].value)
-
 
   return (
     <Modal open={ open }
@@ -20,6 +20,11 @@ const ModalAuth = ({ open, onSubmit }) => {
         onChange={ ({target: { value}}) => setUser(value) } />
     </Modal>
   )
+}
+
+ModalAuth.propTypes = {
+  open: PropTypes.bool,
+  onSubmit: PropTypes.func
 }
 
 export default ModalAuth;

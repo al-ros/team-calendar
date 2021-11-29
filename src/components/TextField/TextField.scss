@@ -1,4 +1,4 @@
-.button {
+.text-field {
     display: inline-block;
     color: rgb(77, 77, 77);
     text-align: center;
@@ -10,20 +10,28 @@
     border-radius: 0.25rem;
     min-width: 10rem;
     height: 2rem;
-    background-color:#eee;
     cursor: pointer;
+    outline: none;
+
+    &::placeholder {
+        color: rgb(151, 166, 185)
+    }
     
-    &:active {
-        background-color: #ddd;
+    &:hover {
+        border-color: rgb(0, 80, 185);
     }
 
-    &--disabled {
-        pointer-events: none;
-        opacity: .5;
+    &:focus {
+        border-color: rgb(65, 135, 226);
     }
 
     &--block {
         display: block;
         width: 100%;
+    }
+
+    &--disabled {
+        pointer-events: none;
+        opacity: .5;
     }
 }

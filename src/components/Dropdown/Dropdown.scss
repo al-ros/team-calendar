@@ -11,4 +11,14 @@
   outline: none;
   background-color: #eee;
   cursor: pointer;
+
+  &--disabled {
+    pointer-events: none;
+    opacity: .5;
+  }
+
+  &--block {
+    display: block;
+    width: 100%;
+}
 }
