@@ -16,6 +16,7 @@ function App() {
   const [ user, setUser ] = useState()
   const [ isOpenAuth, setIsOpenAuth ] = useState(true);
   const [ isOpenModalEvent, setIsOpenModalEvent ] = useState(false);
+  const [ userEvent, setUserEvent ] = useState({})
 
   const handleAuthSubmit = (currUser) => {
     const currentUserInfo = USERS.find(({value}) => currUser === value );
@@ -23,8 +24,39 @@ function App() {
     setIsOpenAuth(false);
   }
 
+  const addEvent = (value) => {
+    // const userE = {
+    //   [value.userName]: { [value.day]: { [value.time]: value} }
+    // }
+
+    // a = {
+    //   ...a,
+    //   q: {
+    //       ...a.q,
+    //       ss: 5
+    //   }
+    // }
+
+    const { userName, day, time } = value;
+
+    const newUserEvent = { 
+      ...userEvent, // all prev users
+      [userName]: {
+        ...userEvent[userName], // all days for the current user
+        [day]: {
+          ...userEvent[userName]?.[day],  // all times for the current day
+          [time]: value
+        }
+      }
+    };
+    
+    setUserEvent(newUserEvent);
+  };
+
+  console.log('events', userEvent)
+
   const handleEventSubmit = (event) => {
-    console.log('event', event)
+    addEvent(event)
   }
   
   return (
