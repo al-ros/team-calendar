@@ -16,6 +16,9 @@ function App() {
   const [ user, setUser ] = useState()
   const [ isOpenAuth, setIsOpenAuth ] = useState(true);
   const [ isOpenModalEvent, setIsOpenModalEvent ] = useState(false);
+  const  [ userEvents, setUserEvents] = useState(USERS.value)
+
+  
 
   const handleAuthSubmit = (currUser) => {
     const currentUserInfo = USERS.find(({value}) => currUser === value );
@@ -25,6 +28,7 @@ function App() {
 
   const handleEventSubmit = (event) => {
     console.log('event', event)
+    // console.log(userEvents)
   }
   
   return (
