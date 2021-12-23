@@ -4,12 +4,14 @@ import Modal from '../Modal'
 import Dropdown from '../Dropdown';
 import Button from '../Button';
 import TextField from '../TextField';
+import UserEventContext from '../../contexts/UserEventContext';
 import UsersContext from '../../contexts/UsersContext';
 import { DAYS, HOURS } from '../../constants';
 import './ModalEvent.scss';
 
 const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
   const { USERS, user } = useContext(UsersContext)
+  const { userEvent} = useContext(UserEventContext)
   const [ event, setEvent ] = useState(eventValue ?? {
     subject: null,
     userName: user.value,
@@ -17,6 +19,7 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
     time: null
   });
 
+  const { userName, day, time } = event
   const daysOptions = useMemo(() => 
     [
       { label: 'Select Day', value: '' }, 
@@ -37,10 +40,11 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
   const handleTimeChange = (value) => setEvent({ ...event, time: value });
 
   const isValid = Object.values(event).every(Boolean);
+  const isEventConflict = () => userEvent[userName]?.[day]?.[time] ? alert('The event already exists. Change the date or edit the current event from the calendar.') : onSubmit(event, console.log(userEvent))
 
   const renderModalFooter = () => (<>
     <Button className="modal-event__control" block label="Cancel" onClick={ onCancel }/>
-    <Button className="modal-event__control" block label="Confirm" disabled={ !isValid } onClick={ () => onSubmit(event) }/>
+    <Button className="modal-event__control" block label="Confirm" disabled={ !isValid } onClick={ () => isEventConflict() }/>
   </>)
 
   return (

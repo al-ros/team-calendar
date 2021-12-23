@@ -4,17 +4,15 @@ import Modal from '../Modal'
 import Dropdown from '../Dropdown';
 import Button from '../Button';
 import UsersContext from '../../contexts/UsersContext';
-import UserEventContext from '../../contexts/UserEventContext';
 
 const ModalAuth = ({ open, onSubmit }) => {
   const { USERS } = useContext(UsersContext)
-  const { userEvent} = useContext(UserEventContext)
   const [ user, setUser ] = useState(USERS[0].value)
 
   return (
     <Modal open={ open }
       closable={ false } 
-      footer={ <Button label="Confirm" onClick={ () => onSubmit(user, console.log(userEvent)) }/> }
+      footer={ <Button label="Confirm" onClick={ () => onSubmit(user) }/> }
     >
       <h2>Please authorize</h2>
       <Dropdown options={ USERS } 
