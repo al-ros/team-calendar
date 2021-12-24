@@ -17,6 +17,7 @@ const Calendar = () => {
                 <div key={time} className="calendar__row">
                     <div className="calendar__cell calendar__cell--strong">{time}</div>
                     {DAYS.map((day) => <div key={day} className="calendar__cell">
+                        {/* {console.log(UserEvent[user?.value]?.[day]?.[time]?.subject)} */}
                         {console.log(UserEvent)}
                     </div>)}
                 </div>
