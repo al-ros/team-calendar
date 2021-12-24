@@ -40,7 +40,7 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
   const handleTimeChange = (value) => setEvent({ ...event, time: value });
 
   const isValid = Object.values(event).every(Boolean);
-  const isEventConflict = () => userEvent[userName]?.[day]?.[time] ? alert('The event already exists. Change the date or edit the current event from the calendar.') : onSubmit(event, console.log(userEvent))
+  const isEventConflict = () => userEvent[userName]?.[day]?.[time] ? alert('The event already exists. Change the date or edit the current event from the calendar.') : onSubmit(event)
 
   const renderModalFooter = () => (<>
     <Button className="modal-event__control" block label="Cancel" onClick={ onCancel }/>

@@ -1,10 +1,12 @@
 import { useContext } from 'react'
 import './Calendar.scss'
+import UserEventContext from '../../contexts/UserEventContext'
 import UsersContext from '../../contexts/UsersContext'
 import { DAYS, HOURS } from '../../constants'
 
 const Calendar = () => {
     const { user } = useContext(UsersContext)
+    const { UserEvent } = useContext(UserEventContext)
     return(
         <div className="calendar">
             <div className="calendar__row">
@@ -17,6 +19,7 @@ const Calendar = () => {
                     {DAYS.map((day) => <div key={day} className="calendar__cell"></div>)}
                 </div>
             ))}
+            {console.log(UserEvent)}
         </div>
     )
 }
