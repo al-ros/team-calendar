@@ -16,10 +16,11 @@ const Calendar = () => {
             {HOURS.map((time) => (
                 <div key={time} className="calendar__row">
                     <div className="calendar__cell calendar__cell--strong">{time}</div>
-                    {DAYS.map((day) => <div key={day} className="calendar__cell"></div>)}
+                    {DAYS.map((day) => <div key={day} className="calendar__cell">
+                        {console.log(UserEvent)}
+                    </div>)}
                 </div>
             ))}
-            {console.log(UserEvent)}
         </div>
     )
 }
