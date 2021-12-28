@@ -11,7 +11,7 @@ import './ModalEvent.scss';
 
 const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
   const { USERS, user } = useContext(UsersContext)
-  const { userEvent} = useContext(UserEventContext)
+  const { userEvent } = useContext(UserEventContext)
   const [ event, setEvent ] = useState(eventValue ?? {
     subject: null,
     userName: user.value,
