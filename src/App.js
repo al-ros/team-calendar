@@ -38,20 +38,7 @@ function App() {
   }
 
   const addEvent = (value) => {
-    // const userE = {
-    //   [value.userName]: { [value.day]: { [value.time]: value} }
-    // }
-
-    // a = {
-    //   ...a,
-    //   q: {
-    //       ...a.q,
-    //       ss: 5
-    //   }
-    // }
-
     const { userName, day, time } = value;
-
     const newUserEvent = { 
       ...userEvent, // all prev users
       [userName]: {
@@ -65,8 +52,6 @@ function App() {
     
     setUserEvent(newUserEvent);
   };
-
-  // console.log('events', userEvent)
 
   const handleEventSubmit = (event) => {
     addEvent(event)

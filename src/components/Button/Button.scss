@@ -26,4 +26,9 @@
         display: block;
         width: 100%;
     }
+
+    &--invisible {
+        background-color: #fff;
+        border-radius: 0;
+    }
 }
