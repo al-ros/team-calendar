@@ -44,7 +44,7 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
 
   const renderModalFooter = () => (<>
     <Button className="modal-event__control" block label="Cancel" onClick={ onCancel }/>
-    <Button className="modal-event__control" block label="Confirm" disabled={ !isValid } onClick={ () => isEventConflict() }/>
+    <Button className="modal-event__control" block label="Confirm" disabled={ !isValid } onClick={ isEventConflict }/>
   </>)
 
   return (
