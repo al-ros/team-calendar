@@ -3,12 +3,12 @@ import './Calendar.scss'
 import UserEventContext from '../../contexts/UserEventContext'
 import UsersContext from '../../contexts/UsersContext'
 import { DAYS, HOURS } from '../../constants'
-import Button from '../Button'
 
-const Calendar = () => {
+
+const Calendar = ({onClickEditEvent}) => {
     const { user } = useContext(UsersContext)
     const { userEvent } = useContext(UserEventContext)
-    const editRemove = () => { console.log('click') }
+    // const editRemove = () => { console.log('click') }
     return(
         <div className="calendar">
             <div className="calendar__row">
@@ -18,9 +18,9 @@ const Calendar = () => {
             {HOURS.map((time) => (
                 <div key={time} className="calendar__row">
                     <div className="calendar__cell calendar__cell--strong">{time}</div>
-                    {DAYS.map((day) => <div key={day} className="calendar__cell">
-                    <Button invisible label={userEvent[user?.value]?.[day]?.[time]?.subject} onClick={ editRemove }/>
-                        
+                    {DAYS.map((day) => 
+                    <div key={day} className="calendar__cell" onClick={ onClickEditEvent }>
+                        {userEvent[user?.value]?.[day]?.[time]?.subject}  
                     </div>)}
                 </div>
             ))}

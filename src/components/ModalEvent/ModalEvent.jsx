@@ -19,6 +19,7 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
     time: null
   });
 
+  console.log(eventValue)
   const { userName, day, time } = event
   const daysOptions = useMemo(() => 
     [

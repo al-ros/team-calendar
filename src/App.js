@@ -62,7 +62,7 @@ function App() {
       <UserEventContext.Provider value={{ userEvent }}>
         <UsersContext.Provider value={{ USERS, user }} >
           <Header onClickNewEvent={() => setIsOpenModalEvent(true)} onFilterChange={() => null} />
-          <Calendar />
+          <Calendar onClickEditEvent={() => setIsOpenModalEvent(true)}/>
           { isOpenModalEvent && <ModalEvent 
               onSubmit={ handleEventSubmit } 
               onCancel={ () => setIsOpenModalEvent(false) } />
