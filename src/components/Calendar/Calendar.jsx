@@ -6,7 +6,8 @@ import { DAYS, HOURS } from '../../constants'
 
 const Calendar = () => {
     const { user } = useContext(UsersContext)
-    const { UserEvent } = useContext(UserEventContext)
+    const { userEvent } = useContext(UserEventContext)
+    const {day, time, subject} = userEvent
     return(
         <div className="calendar">
             <div className="calendar__row">
@@ -19,7 +20,7 @@ const Calendar = () => {
                     {DAYS.map((day) => <div key={day} className="calendar__cell"></div>)}
                 </div>
             ))}
-            {console.log(UserEvent)}
+            {userEvent[user?.value]}
         </div>
     )
 }
