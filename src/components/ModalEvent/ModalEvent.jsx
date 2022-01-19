@@ -11,7 +11,7 @@ import './ModalEvent.scss';
 
 const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
   const { USERS, user } = useContext(UsersContext)
-  const { userEvent} = useContext(UserEventContext)
+  const { userEvent } = useContext(UserEventContext)
   const [ event, setEvent ] = useState(eventValue ?? {
     subject: null,
     userName: user.value,
@@ -44,7 +44,7 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
 
   const renderModalFooter = () => (<>
     <Button className="modal-event__control" block label="Cancel" onClick={ onCancel }/>
-    <Button className="modal-event__control" block label="Confirm" disabled={ !isValid } onClick={ () => isEventConflict() }/>
+    <Button className="modal-event__control" block label="Confirm" disabled={ !isValid } onClick={ isEventConflict }/>
   </>)
 
   return (
