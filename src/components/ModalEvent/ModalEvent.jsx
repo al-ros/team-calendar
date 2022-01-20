@@ -20,6 +20,7 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
   });
 
   console.log(eventValue)
+
   const { userName, day, time } = event
   const daysOptions = useMemo(() => 
     [
@@ -55,7 +56,7 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
       footer={ renderModalFooter() }
     >
       <div className="modal-event">
-        <h2>{ eventValue ? 'Edit' : 'Create' } event</h2>
+        <h2>{ eventValue.subject ? 'Edit' : 'Create' } event</h2>
         <TextField placeholder="Event subject"
           className="modal-event__control"
           block 
