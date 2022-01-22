@@ -59,7 +59,8 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
         <h2>{ eventValue.subject ? 'Edit' : 'Create' } event</h2>
         <TextField placeholder="Event subject"
           className="modal-event__control"
-          block 
+          block
+          value={ event.subject }
           onChange={({target: { value}}) => handleSubjectChange(value) } />
         <Dropdown options={ USERS }
           block
@@ -70,10 +71,12 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
         <Dropdown options={ daysOptions }
           block
           className="modal-event__control"
+          value={ event.day }
           onChange={ ({target: { value}}) => handleDayChange(value) } />
         <Dropdown options={ timesOptions }
           block
           className="modal-event__control"
+          value={ event.time }
           onChange={ ({target: { value}}) => handleTimeChange(value) } />
       </div>
     </Modal>
