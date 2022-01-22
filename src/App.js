@@ -57,6 +57,10 @@ function App() {
   const handleEventSubmit = (event) => {
     addEvent(event)
   }
+
+  const handleEventDelete = (event) => {
+    console.log(event)
+  }
   
   const handleEditEvent = ({ subject, userName, day, time }) => {
     setIsOpenModalEvent(true)
@@ -77,6 +81,7 @@ function App() {
               event= { currentEvent }
               onSubmit={ handleEventSubmit } 
               onCancel={ () => setIsOpenModalEvent(false) }
+              onDelete={ handleEventDelete }
                />
           }
           <ModalAuth open={ isOpenAuth } onSubmit={ handleAuthSubmit } />
