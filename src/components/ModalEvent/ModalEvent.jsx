@@ -12,14 +12,15 @@ import './ModalEvent.scss';
 const ModalEvent = ({ event: eventValue, onCancel, onDelete, onSubmit }) => {
   const { USERS, user } = useContext(UsersContext)
   const { userEvent } = useContext(UserEventContext)
-  const [ event, setEvent ] = useState(eventValue ?? {
-    subject: null,
+  const [ event, setEvent ] = useState({
+    subject: '',
     userName: user.value,
     day: null,
-    time: null
+    time: null,
+    ...eventValue
   });
 
-  console.log(eventValue)
+  // console.log(eventValue)
 
   const { userName, day, time } = event
   const daysOptions = useMemo(() => 
@@ -41,7 +42,10 @@ const ModalEvent = ({ event: eventValue, onCancel, onDelete, onSubmit }) => {
   const handleDayChange = (value) => setEvent({ ...event, day: value });
   const handleTimeChange = (value) => setEvent({ ...event, time: value });
 
-  const isValid = Object.values(event).every(Boolean);
+  const isValid = Object.values(event).every((value) => {
+    console.log(value);
+    return Boolean(value);
+  }); // why it works witout subject?
   const isEventConflict = () => userEvent[userName]?.[day]?.[time] ? alert('The event already exists. Change the date or edit the current event from the calendar.') : onSubmit(event)
 
   const renderModalFooter = () => (<>
@@ -72,6 +76,7 @@ const ModalEvent = ({ event: eventValue, onCancel, onDelete, onSubmit }) => {
         <Dropdown options={ daysOptions }
           block
           className="modal-event__control"
+          disabled={ day !== undefined } // or day? in console.log it looks the same
           value={ event.day }
           onChange={ ({target: { value}}) => handleDayChange(value) } />
         <Dropdown options={ timesOptions }

@@ -56,6 +56,7 @@ function App() {
 
   const handleEventSubmit = (event) => {
     addEvent(event)
+    console.log(event)
   }
 
   const handleEventDelete = (event) => {
@@ -67,7 +68,7 @@ function App() {
     if(subject) {
       setCurrentEvent({ subject, userName, day, time })
     } else {
-      setCurrentEvent({ subject, userName, day, time })
+      setCurrentEvent({ day, time })
     }
   }
 
