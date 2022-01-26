@@ -9,19 +9,18 @@ import UsersContext from '../../contexts/UsersContext';
 import { DAYS, HOURS } from '../../constants';
 import './ModalEvent.scss';
 
-const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
+const ModalEvent = ({ event: eventValue, onCancel, onDelete, onSubmit }) => {
   const { USERS, user } = useContext(UsersContext)
   const { userEvent } = useContext(UserEventContext)
-  const [ event, setEvent ] = useState(eventValue ?? {
-    subject: null,
+  const [ event, setEvent ] = useState({
+    subject: '',
     userName: user.value,
     day: null,
     time: null,
-    id: Date.now()
+    ...eventValue
   });
 
-  console.log(Object(event))
-
+  // console.log(eventValue)
 
   const { userName, day, time } = event
   const daysOptions = useMemo(() => 
@@ -43,11 +42,15 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
   const handleDayChange = (value) => setEvent({ ...event, day: value });
   const handleTimeChange = (value) => setEvent({ ...event, time: value });
 
-  const isValid = Object.values(event).every(Boolean);
+  const isValid = Object.values(event).every((value) => {
+    console.log(value);
+    return Boolean(value);
+  }); // why it works without subject?
   const isEventConflict = () => userEvent[userName]?.[day]?.[time] ? alert('The event already exists. Change the date or edit the current event from the calendar.') : onSubmit(event)
 
   const renderModalFooter = () => (<>
     <Button className="modal-event__control" block label="Cancel" onClick={ onCancel }/>
+    <Button className="modal-event__control" block label="Delete" disabled={ !isValid } onClick={ onDelete }/>
     <Button className="modal-event__control" block label="Confirm" disabled={ !isValid } onClick={ isEventConflict }/>
   </>)
 
@@ -58,10 +61,11 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
       footer={ renderModalFooter() }
     >
       <div className="modal-event">
-        <h2>{ eventValue ? 'Edit' : 'Create' } event</h2>
+        <h2>{ eventValue.subject ? 'Edit' : 'Create' } event</h2>
         <TextField placeholder="Event subject"
           className="modal-event__control"
-          block 
+          block
+          value={ event.subject }
           onChange={({target: { value}}) => handleSubjectChange(value) } />
         <Dropdown options={ USERS }
           block
@@ -72,10 +76,13 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
         <Dropdown options={ daysOptions }
           block
           className="modal-event__control"
+          disabled={ day !== undefined } // or day? in console.log it looks the same
+          value={ event.day }
           onChange={ ({target: { value}}) => handleDayChange(value) } />
         <Dropdown options={ timesOptions }
           block
           className="modal-event__control"
+          value={ event.time }
           onChange={ ({target: { value}}) => handleTimeChange(value) } />
       </div>
     </Modal>

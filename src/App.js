@@ -21,6 +21,7 @@ function App() {
     const temp = localStorage.getItem("events");
     return temp ? JSON.parse(temp) : [];
   });
+  const [ currentEvent, setCurrentEvent ] = useState(null)
 
 
   useEffect(() => {
@@ -55,17 +56,34 @@ function App() {
 
   const handleEventSubmit = (event) => {
     addEvent(event)
+    console.log(event)
+  }
+
+  const handleEventDelete = (event) => {
+    console.log(event)
   }
   
+  const handleEditEvent = ({ subject, userName, day, time }) => {
+    setIsOpenModalEvent(true)
+    if(subject) {
+      setCurrentEvent({ subject, userName, day, time })
+    } else {
+      setCurrentEvent({ day, time })
+    }
+  }
+
   return (
     <div className="App">
       <UserEventContext.Provider value={{ userEvent }}>
         <UsersContext.Provider value={{ USERS, user }} >
           <Header onClickNewEvent={() => setIsOpenModalEvent(true)} onFilterChange={() => null} />
-          <Calendar />
-          { isOpenModalEvent && <ModalEvent 
+          <Calendar onClickEditEvent={ handleEditEvent }/>
+          { isOpenModalEvent && <ModalEvent
+              event= { currentEvent }
               onSubmit={ handleEventSubmit } 
-              onCancel={ () => setIsOpenModalEvent(false) } />
+              onCancel={ () => setIsOpenModalEvent(false) }
+              onDelete={ handleEventDelete }
+               />
           }
           <ModalAuth open={ isOpenAuth } onSubmit={ handleAuthSubmit } />
         </UsersContext.Provider>  
