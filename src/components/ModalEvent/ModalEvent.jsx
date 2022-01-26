@@ -16,10 +16,13 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
     subject: null,
     userName: user.value,
     day: null,
-    time: null
+    time: null,
+    id: Date.now()
   });
 
-  console.log(eventValue)
+  console.log(Object(event))
+
+
   const { userName, day, time } = event
   const daysOptions = useMemo(() => 
     [
