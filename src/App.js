@@ -64,6 +64,7 @@ function App() {
           <Header onClickNewEvent={() => setIsOpenModalEvent(true)} onFilterChange={() => null} />
           <Calendar onClickEditEvent={() => setIsOpenModalEvent(true)}/>
           { isOpenModalEvent && <ModalEvent 
+              eventValue= 'vasya'
               onSubmit={ handleEventSubmit } 
               onCancel={ () => setIsOpenModalEvent(false) } />
           }
