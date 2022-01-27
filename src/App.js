@@ -17,6 +17,7 @@ function App() {
   const [ user, setUser ] = useState()
   const [ isOpenAuth, setIsOpenAuth ] = useState(true);
   const [ isOpenModalEvent, setIsOpenModalEvent ] = useState(false);
+  const [ isAddNewEvent, setIsAddNewEvent] = useState(true)
   const [ userEvent, setUserEvent ] = useState(() => {
     const temp = localStorage.getItem("events");
     return temp ? JSON.parse(temp) : [];
@@ -56,15 +57,16 @@ function App() {
 
   const handleEventSubmit = (event) => {
     addEvent(event)
-    console.log(event)
+    setIsOpenModalEvent(false)
   }
 
   const handleEventDelete = (event) => {
-    console.log(event)
+    // console.log(event)
   }
   
   const handleEditEvent = ({ subject, userName, day, time }) => {
     setIsOpenModalEvent(true)
+    setIsAddNewEvent(false)
     if(subject) {
       setCurrentEvent({ subject, userName, day, time })
     } else {
@@ -76,9 +78,10 @@ function App() {
     <div className="App">
       <UserEventContext.Provider value={{ userEvent }}>
         <UsersContext.Provider value={{ USERS, user }} >
-          <Header onClickNewEvent={() => setIsOpenModalEvent(true)} onFilterChange={() => null} />
+          <Header onClickNewEvent={() => {setIsOpenModalEvent(true); setIsAddNewEvent(true)}} onFilterChange={() => null} />
           <Calendar onClickEditEvent={ handleEditEvent }/>
           { isOpenModalEvent && <ModalEvent
+              isNewEvent= { isAddNewEvent }
               event= { currentEvent }
               onSubmit={ handleEventSubmit } 
               onCancel={ () => setIsOpenModalEvent(false) }
