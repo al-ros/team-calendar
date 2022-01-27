@@ -12,13 +12,17 @@ import './ModalEvent.scss';
 const ModalEvent = ({ event: eventValue, isNewEvent, onCancel, onDelete, onSubmit }) => {
   const { USERS, user } = useContext(UsersContext)
   const { userEvent } = useContext(UserEventContext)
-  const [ event, setEvent ] = useState({
-    subject: '',
-    userName: user.value,
-    day: '',
-    time: '',
-    ...eventValue
-  });
+  const [ event, setEvent ] = useState( () => {
+    if(isNewEvent) {
+      return {
+        subject: '',
+        userName: user.value,
+        day: '',
+        time: ''}
+      } else {
+         return  eventValue
+      }
+    });
 
   const subjectCheck = event.subject
   console.log(isNewEvent)
