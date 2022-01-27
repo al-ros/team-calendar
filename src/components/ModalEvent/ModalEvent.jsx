@@ -20,7 +20,11 @@ const ModalEvent = ({ event: eventValue, isNewEvent, onCancel, onDelete, onSubmi
         day: '',
         time: ''}
       } else {
-         return  eventValue
+         return  {
+          subject: '',
+          userName: user.value,
+          day: '',
+          time: '', ...eventValue}
       }
     });
 
@@ -76,18 +80,19 @@ const ModalEvent = ({ event: eventValue, isNewEvent, onCancel, onDelete, onSubmi
         <Dropdown options={ USERS }
           block
           className="modal-event__control"
-          disabled={ user.role !== 'admin' }
+          disabled={ user.role !== 'admin' || !isNewEvent }
           value={ event.userName }
           onChange={ ({target: { value}}) => handleUserChange(value) } />
         <Dropdown options={ daysOptions }
           block
           className="modal-event__control"
-          // disabled={ day !== undefined } // or day? in console.log it looks the same
+          disabled={ !isNewEvent }
           value={ event.day }
           onChange={ ({target: { value}}) => handleDayChange(value) } />
         <Dropdown options={ timesOptions }
           block
           className="modal-event__control"
+          disabled={ !isNewEvent }
           value={ event.time }
           onChange={ ({target: { value}}) => handleTimeChange(value) } />
       </div>
