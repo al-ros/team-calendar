@@ -16,8 +16,7 @@ const USERS = [
 function App() {
   const [ user, setUser ] = useState()
   const [ isOpenAuth, setIsOpenAuth ] = useState(true);
-  const [ isOpenModalEvent, setIsOpenModalEvent ] = useState(false);
-  const [ isAddNewEvent, setIsAddNewEvent] = useState(true)
+  const [ isOpenModalEvent, setIsOpenModalEvent ] = useState(false)
   const [ userEvent, setUserEvent ] = useState(() => {
     const temp = localStorage.getItem("events");
     return temp ? JSON.parse(temp) : [];
@@ -40,14 +39,14 @@ function App() {
   }
 
   const addEvent = (value) => {
-    const { userName, day, time } = value;
+    const { userName, day, time, subject } = value;
     const newUserEvent = { 
       ...userEvent, // all prev users
       [userName]: {
         ...userEvent[userName], // all days for the current user
         [day]: {
           ...userEvent[userName]?.[day],  // all times for the current day
-          [time]: value
+          [time]: subject ? value : null
         }
       }
     };
@@ -60,13 +59,9 @@ function App() {
     setIsOpenModalEvent(false)
   }
 
-  const handleEventDelete = (event) => {
-    // console.log(event)
-  }
   
   const handleEditEvent = ({ subject, userName, day, time }) => {
     setIsOpenModalEvent(true)
-    setIsAddNewEvent(false)
     if(subject) {
       setCurrentEvent({ subject, userName, day, time })
     } else {
@@ -78,14 +73,12 @@ function App() {
     <div className="App">
       <UserEventContext.Provider value={{ userEvent }}>
         <UsersContext.Provider value={{ USERS, user }} >
-          <Header onClickNewEvent={() => {setIsOpenModalEvent(true); setIsAddNewEvent(true)}} onFilterChange={() => null} />
+          <Header onClickNewEvent={() => {setIsOpenModalEvent(true); setCurrentEvent(null)}} onFilterChange={() => null} />
           <Calendar onClickEditEvent={ handleEditEvent }/>
           { isOpenModalEvent && <ModalEvent
-              isNewEvent= { isAddNewEvent }
               event= { currentEvent }
               onSubmit={ handleEventSubmit } 
               onCancel={ () => setIsOpenModalEvent(false) }
-              onDelete={ handleEventDelete }
                />
           }
           <ModalAuth open={ isOpenAuth } onSubmit={ handleAuthSubmit } />
