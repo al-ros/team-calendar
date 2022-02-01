@@ -60,7 +60,11 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
 
   const renderModalFooter = () => (<>
     <Button className="modal-event__control" block label="Cancel" onClick={ onCancel }/>
-    { !isNewEvent && isEditMode && <Button className="modal-event__control" block label="Delete" disabled={ !isValid } onClick={ () => onSubmit({subject: '', userName: event.userName, day: event.day, time: event.time}) }/>}
+    { !isNewEvent && isEditMode && <Button className="modal-event__control" 
+      block 
+      label="Delete" 
+      disabled={ !isValid } 
+      onClick={ () => onSubmit({subject: '', userName: event.userName, day: event.day, time: event.time}) }/>}
     <Button className="modal-event__control" block label="Confirm" disabled={ !isValid } onClick={ handleClickConfirm }/>
   </>)
 
