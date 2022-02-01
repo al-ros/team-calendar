@@ -4,10 +4,11 @@ import UserEventContext from '../../contexts/UserEventContext'
 import UsersContext from '../../contexts/UsersContext'
 import { DAYS, HOURS } from '../../constants'
 
-const Calendar = ({onClickEditEvent}) => {
-    const { user } = useContext(UsersContext)
+const Calendar = ({onClickEditEvent, filterValue}) => {
+    const { USERS } = useContext(UsersContext)
     const { userEvent } = useContext(UserEventContext)
 
+    const user = USERS.find( (item) => item.value === filterValue)
     const getSubject = (user, day, time) => userEvent[user?.value]?.[day]?.[time]?.subject
 
     return(
@@ -25,6 +26,7 @@ const Calendar = ({onClickEditEvent}) => {
                     </div>)}
                 </div>
             ))}
+            {/* {console.log(user)} */}
         </div>
     )
 }

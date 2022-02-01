@@ -15,6 +15,7 @@ const USERS = [
 
 function App() {
   const [ user, setUser ] = useState()
+  const [filterValue, setFilterValue] = useState('');
   const [ isOpenAuth, setIsOpenAuth ] = useState(true);
   const [ isOpenModalEvent, setIsOpenModalEvent ] = useState(false)
   const [ userEvent, setUserEvent ] = useState(() => {
@@ -26,17 +27,20 @@ function App() {
 
   useEffect(() => {
     const temp = JSON.stringify(userEvent);
-    // console.log(temp)
     localStorage.setItem("events", temp);
   }, [userEvent]);
 
   
 
-  const handleAuthSubmit = (currUser) => {
-    const currentUserInfo = USERS.find(({value}) => currUser === value );
+  const handleAuthSubmit = (currUserValue) => {
+    const currentUserInfo = USERS.find(({value}) => currUserValue === value );
     setUser(currentUserInfo);
+    setFilterValue(currUserValue)
     setIsOpenAuth(false);
   }
+  
+  const handleFilterChange= (event) => setFilterValue(event.currentTarget.value)
+
 
   const addEvent = (value) => {
     const { userName, day, time, subject } = value;
@@ -68,15 +72,15 @@ function App() {
       setCurrentEvent({ day, time })
     }
   }
-
+  
   return (
     <div className="App">
       <UserEventContext.Provider value={{ userEvent }}>
         <UsersContext.Provider value={{ USERS, user }} >
-          <Header onClickNewEvent={() => {setIsOpenModalEvent(true); setCurrentEvent(null)}} onFilterChange={() => null} />
-          <Calendar onClickEditEvent={ handleEditEvent }/>
+          <Header onClickNewEvent={() => {setIsOpenModalEvent(true); setCurrentEvent(null)}} onFilterChange={ handleFilterChange } filterValue={filterValue}/>
+          <Calendar onClickEditEvent={ handleEditEvent } filterValue = { filterValue }/>
           { isOpenModalEvent && <ModalEvent
-              event= { currentEvent }
+              event={ currentEvent }
               onSubmit={ handleEventSubmit } 
               onCancel={ () => setIsOpenModalEvent(false) }
                />
