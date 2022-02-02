@@ -16,11 +16,12 @@ const USERS = [
 function App() {
   const [ user, setUser ] = useState()
   const [ isOpenAuth, setIsOpenAuth ] = useState(true);
-  const [ isOpenModalEvent, setIsOpenModalEvent ] = useState(false);
+  const [ isOpenModalEvent, setIsOpenModalEvent ] = useState(false)
   const [ userEvent, setUserEvent ] = useState(() => {
     const temp = localStorage.getItem("events");
     return temp ? JSON.parse(temp) : [];
   });
+  const [ currentEvent, setCurrentEvent ] = useState(null)
 
 
   useEffect(() => {
@@ -38,27 +39,14 @@ function App() {
   }
 
   const addEvent = (value) => {
-    // const userE = {
-    //   [value.userName]: { [value.day]: { [value.time]: value} }
-    // }
-
-    // a = {
-    //   ...a,
-    //   q: {
-    //       ...a.q,
-    //       ss: 5
-    //   }
-    // }
-
-    const { userName, day, time } = value;
-
+    const { userName, day, time, subject } = value;
     const newUserEvent = { 
       ...userEvent, // all prev users
       [userName]: {
         ...userEvent[userName], // all days for the current user
         [day]: {
           ...userEvent[userName]?.[day],  // all times for the current day
-          [time]: value
+          [time]: subject ? value : null
         }
       }
     };
@@ -66,21 +54,32 @@ function App() {
     setUserEvent(newUserEvent);
   };
 
-  // console.log('events', userEvent)
-
   const handleEventSubmit = (event) => {
     addEvent(event)
+    setIsOpenModalEvent(false)
   }
+
   
+  const handleEditEvent = ({ subject, userName, day, time }) => {
+    setIsOpenModalEvent(true)
+    if(subject) {
+      setCurrentEvent({ subject, userName, day, time })
+    } else {
+      setCurrentEvent({ day, time })
+    }
+  }
+
   return (
     <div className="App">
       <UserEventContext.Provider value={{ userEvent }}>
         <UsersContext.Provider value={{ USERS, user }} >
-          <Header onClickNewEvent={() => setIsOpenModalEvent(true)} onFilterChange={() => null} />
-          <Calendar />
-          { isOpenModalEvent && <ModalEvent 
+          <Header onClickNewEvent={() => {setIsOpenModalEvent(true); setCurrentEvent(null)}} onFilterChange={() => null} />
+          <Calendar onClickEditEvent={ handleEditEvent }/>
+          { isOpenModalEvent && <ModalEvent
+              event= { currentEvent }
               onSubmit={ handleEventSubmit } 
-              onCancel={ () => setIsOpenModalEvent(false) } />
+              onCancel={ () => setIsOpenModalEvent(false) }
+               />
           }
           <ModalAuth open={ isOpenAuth } onSubmit={ handleAuthSubmit } />
         </UsersContext.Provider>  

@@ -6,7 +6,7 @@ const Button = ({ onClick, label, className, disabled, block, ...rest }) =>
     <button disabled={ disabled } 
         className={ cn('button', className, {
             'button--disabled': disabled,
-            'button--block': block 
+            'button--block': block
         }) }
         onClick={ onClick }
         { ...rest }

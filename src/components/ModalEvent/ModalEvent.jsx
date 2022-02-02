@@ -10,14 +10,20 @@ import { DAYS, HOURS } from '../../constants';
 import './ModalEvent.scss';
 
 const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
+  const isNewEvent = !eventValue
   const { USERS, user } = useContext(UsersContext)
   const { userEvent } = useContext(UserEventContext)
-  const [ event, setEvent ] = useState(eventValue ?? {
-    subject: null,
-    userName: user.value,
-    day: null,
-    time: null
-  });
+  const [ event, setEvent ] = useState(
+      {
+        subject: '',
+        userName: user.value,
+        day: '',
+        time: '', 
+        ...eventValue 
+      }
+  );
+
+  const isEditMode = eventValue?.subject
 
   const { userName, day, time } = event
   const daysOptions = useMemo(() => 
@@ -39,12 +45,27 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
   const handleDayChange = (value) => setEvent({ ...event, day: value });
   const handleTimeChange = (value) => setEvent({ ...event, time: value });
 
-  const isValid = Object.values(event).every(Boolean);
-  const isEventConflict = () => userEvent[userName]?.[day]?.[time] ? alert('The event already exists. Change the date or edit the current event from the calendar.') : onSubmit(event)
+  const isValid = Object.values(event).every((value) => {
+    return Boolean(value);
+  });
+
+  const handleClickConfirm = () => {
+    const existValue = userEvent[userName]?.[day]?.[time]
+    if(existValue && isNewEvent) {
+      alert('The event already exists. Change the date or edit the current event from the calendar.')
+    } else {
+      onSubmit(event)
+    }
+  }
 
   const renderModalFooter = () => (<>
     <Button className="modal-event__control" block label="Cancel" onClick={ onCancel }/>
-    <Button className="modal-event__control" block label="Confirm" disabled={ !isValid } onClick={ isEventConflict }/>
+    { !isNewEvent && isEditMode && <Button className="modal-event__control" 
+      block 
+      label="Delete" 
+      disabled={ !isValid } 
+      onClick={ () => onSubmit({subject: '', userName: event.userName, day: event.day, time: event.time}) }/>}
+    <Button className="modal-event__control" block label="Confirm" disabled={ !isValid } onClick={ handleClickConfirm }/>
   </>)
 
   return (
@@ -54,24 +75,29 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
       footer={ renderModalFooter() }
     >
       <div className="modal-event">
-        <h2>{ eventValue ? 'Edit' : 'Create' } event</h2>
+        <h2>{ isEditMode ? 'Edit' : 'Create' } event</h2>
         <TextField placeholder="Event subject"
           className="modal-event__control"
-          block 
+          block
+          value={ event.subject }
           onChange={({target: { value}}) => handleSubjectChange(value) } />
         <Dropdown options={ USERS }
           block
           className="modal-event__control"
-          disabled={ user.role !== 'admin' }
+          disabled={ user.role !== 'admin' || !isNewEvent }
           value={ event.userName }
           onChange={ ({target: { value}}) => handleUserChange(value) } />
         <Dropdown options={ daysOptions }
           block
           className="modal-event__control"
+          disabled={ !isNewEvent }
+          value={ event.day }
           onChange={ ({target: { value}}) => handleDayChange(value) } />
         <Dropdown options={ timesOptions }
           block
           className="modal-event__control"
+          disabled={ !isNewEvent }
+          value={ event.time }
           onChange={ ({target: { value}}) => handleTimeChange(value) } />
       </div>
     </Modal>
