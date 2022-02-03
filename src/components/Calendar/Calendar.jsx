@@ -22,7 +22,9 @@ const Calendar = ({onClickEditEvent, filterValue}) => {
                     <div className="calendar__cell calendar__cell--strong">{time}</div>
                     {DAYS.map((day) => 
                     <div key={day} className="calendar__cell" onClick={ () => onClickEditEvent({userName: user.value, day, time, subject: getSubject(user, day, time)}) }>
-                        {getSubject(user, day, time)}  
+                        {getSubject(user, day, time)} 
+                        {/* {userEvent.map((item) => console.log(item))} */}
+                        {console.log(user)}
                     </div>)}
                 </div>
             ))}

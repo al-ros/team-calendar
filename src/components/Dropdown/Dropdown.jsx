@@ -20,9 +20,9 @@ const Dropdown = ({ options = [], value, onChange, className, disabled, block, i
         options.map(({ label, value: itemValue}) => {
           if (label === 'All users' && isAuth) {
             return null
-            } else {
+          } else {
             return <option key={ itemValue + label } value={ itemValue }>{ label }</option>}
-             }
+          }
         )
       }
     </select>
