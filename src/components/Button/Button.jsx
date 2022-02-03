@@ -2,12 +2,11 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 import './Button.scss'
 
-const Button = ({ onClick, label, className, disabled, block, invisible, ...rest }) =>
+const Button = ({ onClick, label, className, disabled, block, ...rest }) =>
     <button disabled={ disabled } 
         className={ cn('button', className, {
             'button--disabled': disabled,
-            'button--block': block,
-            'button--invisible': invisible
+            'button--block': block
         }) }
         onClick={ onClick }
         { ...rest }
