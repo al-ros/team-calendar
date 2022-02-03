@@ -24,7 +24,14 @@ const Calendar = ({onClickEditEvent, filterValue}) => {
                     <div key={day} className="calendar__cell" onClick={ () => onClickEditEvent({userName: user.value, day, time, subject: getSubject(user, day, time)}) }>
                         {getSubject(user, day, time)} 
                         {/* {userEvent.map((item) => console.log(item))} */}
-                        {console.log(user)}
+                        {/* {console.log(user)} */}
+                        {/* {
+                            if(user.value !== 'allUsers') {
+                                return null
+                            } else {
+                                return null
+                            }
+                        } */}
                     </div>)}
                 </div>
             ))}
