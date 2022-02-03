@@ -17,8 +17,7 @@ const ModalAuth = ({ open, onSubmit }) => {
       <h2>Please authorize</h2>
       <Dropdown options={ USERS } 
         value={ user }
-        onChange={ ({target: { value}}) => setUser(value) } />
-        {/* {console.log(user)} */}
+        onChange={ ({target: { value }}) => setUser(value) } />
     </Modal>
   )
 }

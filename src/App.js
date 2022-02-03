@@ -16,7 +16,7 @@ const USERS = [
 
 function App() {
   const [ user, setUser ] = useState()
-  const [filterValue, setFilterValue] = useState('');
+  const [ filterValue, setFilterValue ] = useState('');
   const [ isOpenAuth, setIsOpenAuth ] = useState(true);
   const [ isOpenModalEvent, setIsOpenModalEvent ] = useState(false)
   const [ userEvent, setUserEvent ] = useState(() => {
@@ -77,7 +77,7 @@ function App() {
   return (
     <div className="App">
       <UserEventContext.Provider value={{ userEvent }}>
-        <UsersContext.Provider value={{ USERS, user }} >
+        <UsersContext.Provider value={{ USERS, user, isOpenAuth }} >
           <Header onClickNewEvent={() => {setIsOpenModalEvent(true); setCurrentEvent(null)}} onFilterChange={ handleFilterChange } filterValue={filterValue}/>
           <Calendar onClickEditEvent={ handleEditEvent } filterValue = { filterValue }/>
           { isOpenModalEvent && <ModalEvent
