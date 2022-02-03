@@ -2,8 +2,7 @@ import { createContext } from 'react'
 
 const UsersContext = createContext({
     USERS: [],
-    user: null,
-    isOpenAuth: Boolean
+    user: null
 }
 )
 

@@ -77,7 +77,7 @@ function App() {
   return (
     <div className="App">
       <UserEventContext.Provider value={{ userEvent }}>
-        <UsersContext.Provider value={{ USERS, user, isOpenAuth }} >
+        <UsersContext.Provider value={{ USERS, user }} >
           <Header onClickNewEvent={() => {setIsOpenModalEvent(true); setCurrentEvent(null)}} onFilterChange={ handleFilterChange } filterValue={filterValue}/>
           <Calendar onClickEditEvent={ handleEditEvent } filterValue = { filterValue }/>
           { isOpenModalEvent && <ModalEvent
