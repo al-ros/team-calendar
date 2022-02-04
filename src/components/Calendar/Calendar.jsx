@@ -26,7 +26,6 @@ const Calendar = ({onClickEditEvent, filterValue}) => {
                     </div>)}
                 </div>
             ))}
-            {/* {console.log(user)} */}
         </div>
     )
 }

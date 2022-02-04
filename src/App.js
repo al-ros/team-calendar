@@ -15,7 +15,7 @@ const USERS = [
 
 function App() {
   const [ user, setUser ] = useState()
-  const [filterValue, setFilterValue] = useState('');
+  const [ filterValue, setFilterValue ] = useState('');
   const [ isOpenAuth, setIsOpenAuth ] = useState(true);
   const [ isOpenModalEvent, setIsOpenModalEvent ] = useState(false)
   const [ userEvent, setUserEvent ] = useState(() => {
