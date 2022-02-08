@@ -7,11 +7,12 @@ import UsersContext from '../../contexts/UsersContext'
 
 const Header = ({ onClickNewEvent, filterValue, onFilterChange }) => {
     const { USERS } = useContext(UsersContext)   
-   
+    const filterOptions = [ { label: 'All users', value: 'allUsers' }, ...USERS, ]
+
     return (
         <header className="header">
             <h1 className="header__title">Calendar</h1>
-            <Dropdown className="header__filter" options={ USERS } 
+            <Dropdown className="header__filter" options={ filterOptions } 
                 value={ filterValue }
                 onChange={ onFilterChange } />
             <Button className="header__button" onClick={onClickNewEvent} label="New event +"/>

@@ -11,7 +11,6 @@ const USERS = [
   { label: 'Admin', value: 'admin', role: 'admin' },
   { label: 'Sasha', value: 'sasha', role: 'user' },
   { label: 'Roma', value: 'roma', role: 'user' },
-  { label: 'All users', value: 'allUsers', role: 'allUsers'}
 ]
 
 function App() {
@@ -68,9 +67,9 @@ function App() {
   const handleEditEvent = ({ subject, userName, day, time }) => {
     setIsOpenModalEvent(true)
     if(subject) {
-      setCurrentEvent({ subject, userName, day, time })
+        setCurrentEvent({ subject, userName, day, time })
     } else {
-      setCurrentEvent({ day, time })
+      setCurrentEvent({ userName: user.role === 'admin' ? userName : user.value, day, time })
     }
   }
   

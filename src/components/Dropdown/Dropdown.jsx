@@ -2,13 +2,12 @@ import PropTypes from 'prop-types';
 import cn from 'classnames'
 import './Dropdown.scss';
 
-const Dropdown = ({ options = [], value, onChange, className, disabled, block, isAuth, ...rest }) => {
+const Dropdown = ({ options = [], value, onChange, className, disabled, block, ...rest }) => {
 
   return !!options.length && (
     <select value={ value } 
       onChange={ onChange } 
       disabled={disabled} 
-      // isAuth={ isAuth } <-- do we need it?
       className={cn('dropdown', className, {
         'dropdown--disabled': disabled,
         'dropdown--block': block
@@ -16,14 +15,7 @@ const Dropdown = ({ options = [], value, onChange, className, disabled, block, i
       { ...rest }
     >
       { 
-        console.log(isAuth),  // why after closing isAuth is 'undefined'
-        options.map(({ label, value: itemValue}) => {
-          if (label === 'All users' && isAuth) {
-            return null
-          } else {
-            return <option key={ itemValue + label } value={ itemValue }>{ label }</option>}
-          }
-        )
+        options.map(({ label, value: itemValue}) => <option key={ itemValue + label } value={ itemValue }>{ label }</option>)
       }
     </select>
   )

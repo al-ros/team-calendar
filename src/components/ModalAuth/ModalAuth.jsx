@@ -18,8 +18,7 @@ const ModalAuth = ({ open, onSubmit }) => {
       <Dropdown options={ USERS } 
         value={ user }
         onChange={ ({target: { value }}) => setUser(value) }
-        isAuth={ open } />
-  
+      />
     </Modal>
   )
 }
