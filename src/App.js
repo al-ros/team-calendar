@@ -10,7 +10,7 @@ import Calendar from './components/Calendar';
 const USERS = [
   { label: 'Admin', value: 'admin', role: 'admin' },
   { label: 'Sasha', value: 'sasha', role: 'user' },
-  { label: 'Roma', value: 'roma', role: 'user' },
+  { label: 'Roma', value: 'roma', role: 'user' }
 ]
 
 function App() {
