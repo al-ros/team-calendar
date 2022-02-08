@@ -84,7 +84,7 @@ const ModalEvent = ({ event: eventValue, onCancel, onSubmit }) => {
         <Dropdown options={ USERS }
           block
           className="modal-event__control"
-          disabled={ user.role !== 'admin' || !isNewEvent }
+          disabled={ user.role !== 'admin' || (!isNewEvent && user.role !== 'admin') }
           value={ event.userName }
           onChange={ ({target: { value}}) => handleUserChange(value) } />
         <Dropdown options={ daysOptions }
