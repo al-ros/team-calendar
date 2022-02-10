@@ -25,15 +25,16 @@ const Calendar = ({onClickEditEvent, filterValue}) => {
                     {DAYS.map((day) => (
                         <div key={day} 
                              className="calendar__cell" 
-                             onClick={ () => onClickEditEvent({userName: selectedUser?.value, day, time, subject: getSubject(selectedUser, day, time)}) }>
+                             onClick={ isAllUsers ? null : () => onClickEditEvent({userName: selectedUser?.value, day, time, subject: getSubject(selectedUser, day, time)}) }>
                                 {isAllUsers ? 
                                 USERS.map((user) => 
                                  (<CalendarEvent key={user.value}
                                                 user={user}
                                                 day={day}
                                                 time={time}
-                                                subject={getSubject(user, day, time)}
-                                                onClick={onClickEditEvent}
+                                                subject={user.label + `: ` + getSubject(user, day, time)}
+                                                onClick={isAllUsers ? () => console.log(selectedUser) : onClickEditEvent}
+                                                isAllUsers={isAllUsers}
                                  />)
                                 )
                                 : 
