@@ -6,13 +6,15 @@ import UsersContext from '../../contexts/UsersContext'
 import { DAYS, HOURS } from '../../constants'
 
 const Calendar = ({onClickEditEvent, filterValue}) => {
-    const { USERS } = useContext(UsersContext)
+    const { user, USERS } = useContext(UsersContext)
     const { userEvent } = useContext(UserEventContext)
 
     const isAllUsers = filterValue === 'allUsers'
     const selectedUser = USERS.find( (item) => item.value === filterValue)
     const getSubject = (user, day, time) => userEvent[user?.value]?.[day]?.[time]?.subject
     
+    const hasEventPermission = (currentUser) => (user?.role === 'admin' || user?.value === currentUser?.value);
+
     return(
         <div className="calendar">
             <div className="calendar__row">
@@ -24,17 +26,24 @@ const Calendar = ({onClickEditEvent, filterValue}) => {
                     <div className="calendar__cell calendar__cell--strong">{time}</div>
                     {DAYS.map((day) => (
                         <div key={day} 
-                             className="calendar__cell" 
-                             onClick={ isAllUsers ? null : () => onClickEditEvent({userName: selectedUser?.value, day, time, subject: getSubject(selectedUser, day, time)}) }>
+                            className="calendar__cell" 
+                            onClick={ hasEventPermission(selectedUser) 
+                                ? () => onClickEditEvent({
+                                    userName: (selectedUser || user)?.value, 
+                                    day, 
+                                    time, 
+                                    subject: getSubject(selectedUser || user, day, time)}) 
+                                : () => null }
+                            >
                                 {isAllUsers ? 
-                                USERS.map((user) => 
-                                 (<CalendarEvent key={user.value}
-                                                user={user}
+                                USERS.map((currentUser) => 
+                                 (<CalendarEvent key={currentUser.value}
+                                                user={currentUser}
                                                 day={day}
                                                 time={time}
-                                                subject={user.label + `: ` + getSubject(user, day, time)}
-                                                onClick={isAllUsers ? () => console.log(selectedUser) : onClickEditEvent}
-                                                isAllUsers={isAllUsers}
+                                                subject={getSubject(currentUser, day, time)}
+                                                onClick={ hasEventPermission(currentUser) ? onClickEditEvent : () => null}
+                                                isAllUsers={true}
                                  />)
                                 )
                                 : 
@@ -42,7 +51,7 @@ const Calendar = ({onClickEditEvent, filterValue}) => {
                                                 day={day}
                                                 time={time}
                                                 subject={getSubject(selectedUser, day, time)}
-                                                onClick={onClickEditEvent}
+                                                onClick={hasEventPermission(selectedUser) ? onClickEditEvent : () => null}
                                 />)}
                         </div>)
                     )}
