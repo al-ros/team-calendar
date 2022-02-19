@@ -23,7 +23,7 @@ const Calendar = ({onClickEditEvent, filterValue}) => {
             </div>
             {HOURS.map((time) => (
                 <div key={time} className="calendar__row">
-                    <div className="calendar__cell calendar__cell--strong">{time}</div>
+                    <div className="calendar__cell calendar__cell--side">{time}</div>
                     {DAYS.map((day) => (
                         <div key={day} 
                             className="calendar__cell" 
