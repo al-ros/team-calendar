@@ -6,7 +6,7 @@ import UsersContext from '../../contexts/UsersContext'
  import './Header.scss'
 
 const Header = ({ onClickNewEvent, filterValue, onFilterChange }) => {
-    const { USERS } = useContext(UsersContext)   
+    const { USERS } = useContext(UsersContext)
     const filterOptions = [ { label: 'All users', value: 'allUsers' }, ...USERS, ]
 
     return (
