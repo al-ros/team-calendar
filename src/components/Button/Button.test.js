@@ -32,9 +32,14 @@ describe('<Button />', () => {
     expect(handleClick).toHaveBeenCalled();
   });
 
-  // it('should be disabled', () => {
-  //   expect(true).toBe(true);
-  // })
+  it('should be disabled', () => {
+    const { container } = render(<Button className='button--disabled' label="The magic button" />)
+    // const button = screen.getByRole('button', { name: /magic/i })
+    // expect(button).toHaveClass('button--disabled');
+    expect(container.firstChild.classList.contains('button--disabled')).toBe(true)
+
+    // expect(container.firstChild).toBeDisabled(); // why this test fail?!
+  })
 
   // it('should be block', () => {
   //   expect(true).toBe(true);
